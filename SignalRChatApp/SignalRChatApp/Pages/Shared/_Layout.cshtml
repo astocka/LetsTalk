@@ -7,6 +7,7 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link href="~/lib/bootstrap/dist/css/sticky-footer.css" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -41,8 +42,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - SignalRChatApp</p>
+        <footer class="footer">
+            <span class="text-muted">&copy; @DateTime.Now.Year - SignalRChatApp</span>
         </footer>
     </div>
 
