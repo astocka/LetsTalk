@@ -1,0 +1,31 @@
+﻿@page
+
+<p class="display-4">Chat</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div>
+                Users online
+            </div>
+            <table id="users-online"></table>
+        </div>
+        <div class="col-sm-8">
+            <div id="row">
+                <div id="message-box">
+                    <ul id="messages-list"></ul>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col align-self-end" id="type-message">
+                    <input type="text" id="message-input" placeholder="Type message..." />
+                    <input class="btn btn-info" type="button" id="send-button" value="Send" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+
