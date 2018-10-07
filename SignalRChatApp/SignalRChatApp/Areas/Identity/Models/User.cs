@@ -10,7 +10,6 @@ namespace SignalRChatApp.Areas.Identity.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public string Picture { get; set; }
 	}
 }

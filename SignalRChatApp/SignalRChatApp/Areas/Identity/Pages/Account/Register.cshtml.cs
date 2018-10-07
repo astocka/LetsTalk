@@ -62,15 +62,10 @@ namespace SignalRChatApp.Areas.Identity.Pages.Account
 			[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
 			public string ConfirmPassword { get; set; }
 
-			[Required]
-			[Display(Name = "Client Name")]
-			public string ClientName { get; set; }
-
 		    [Required]
 		    [Display(Name = "Name")]
 		    public string Name { get; set; }
 
-            [Required]
 		    [Display(Name = "Picture")]
 		    public string Picture { get; set; }
         }
