@@ -1,7 +1,11 @@
-﻿"use strict";
+﻿// Bind DOM elements
+var messageInput = document.getElementById("message-input");
+var sendButton = document.getElementById("send-button");
+var messagesList = document.getElementById("messages-list");
+//var messageTextBox = document.getElementById("message-textbox");
+var usersOnline = document.getElementById("users-online");
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
-
+//date
 function getCurrentDate() {
     var currentDate = new Date(),
         day = currentDate.getDate(),
@@ -30,34 +34,72 @@ function getCurrentTime() {
     return hours + ":" + minutes + " " + suffix + " ";
 }
 
+//messages
+function appendMessage(content) {
+    var li = document.createElement("li");
+    li.innerText = content;
+    messagesList.appendChild(li);
+}
+//users
+//function usersList(content) {
+//    var li = document.createElement("li");
+//    li.innerText = content;
+//    usersOnline.appendChild(li);
+//}
 
-connection.on("ReceiveMessage", function (user, message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chat")
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
 
-    var info = document.createElement("li");
-    info.textContent = user + " " + getCurrentDate() + getCurrentTime();
+sendButton.addEventListener("click", function () {
+    var message = messageInput.value;
+    messageInput.value = "";
+    connection.send("Send", message);
+    //event.preventDefault();
 
-    var userMsg = document.createElement("li");
-    userMsg.textContent = msg;
-
-    var messages = document.getElementById("messagesList");
-    messages.appendChild(info);
-    messages.appendChild(userMsg);
-    messages.style.listStyleType = "none";
+    //document.getElementById("userInput").value = "";
+    //document.getElementById("messageInput").value = "";
 });
 
-connection.start().catch(function (err) {
-    return console.error(err.toString());
+connection.on("SendMessage", function (sender, message) {
+    var indexAt = sender.toString().indexOf("@");
+    var senderName = sender.slice(0, indexAt);
+
+    appendMessage(senderName + '  ' + getCurrentDate() + getCurrentTime() + ' : ' + message);
 });
 
-document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
-    event.preventDefault();
+connection.on("SendAction", function (sender, status) {
+    var indexAt = sender.toString().indexOf("@");
+    var senderName = sender.slice(0, indexAt);
 
-    document.getElementById("userInput").value = "";
-    document.getElementById("messageInput").value = "";
+
+    var tableRow = document.createElement("tr");
+    var statusData = document.createElement("td");
+    var userData = document.createElement("td");
+
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute("width", "10");
+    canvas.setAttribute("height", "10");
+    if (status === "connected") {
+        canvas.style.backgroundColor = "#BADA55";
+    } else if (status === "disconnected") {
+        canvas.style.backgroundColor = "#cc0033";
+    } else {
+        canvas.style.backgroundColor = "#c2c2d6";
+    }
+    canvas.style.borderRadius = "100px";
+
+    statusData.appendChild(canvas);
+    userData.innerText = senderName;
+
+    usersOnline.appendChild(tableRow);
+    tableRow.appendChild(statusData);
+    tableRow.appendChild(userData);
 });
+
+connection.start().then(function () {
+    messageInput.disabled = false;
+    sendButton.disabled = false;
+});
+

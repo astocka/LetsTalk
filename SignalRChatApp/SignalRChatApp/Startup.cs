@@ -67,7 +67,12 @@ namespace SignalRChatApp
             {
                 routes.MapHub<ChatHub>("/chat");
             });
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
