@@ -1,29 +1,32 @@
 ﻿@page
 
-<p class="display-4">Chat</p>
-
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
-            <div>
-                Users online
-            </div>
-            <table id="users-online"></table>
+            <h2 class="display-4">Users online</h2>
+            <table id="users-online" class="mt-5"></table>
         </div>
         <div class="col-sm-8">
-            <div id="row">
-                <div id="message-box">
-                    <ul id="messages-list"></ul>
+            <h2 class="display-4" style="overflow: auto;">Messages</h2>
+            <div class="col-sm-12">
+                <div id="type-message">
+                    <textarea class="form-control form-control-lg" type="text" id="message-input" placeholder="Type message..." rows="2" col="8"></textarea>
+                    <input class="btn btn-info" type="button" id="send-button" value="Send"/>
                 </div>
             </div>
-            <div class="row align-items-end">
-                <div class="col align-self-end" id="type-message">
-                    <input type="text" id="message-input" placeholder="Type message..." />
-                    <input class="btn btn-info" type="button" id="send-button" value="Send" />
-                </div>
+            <hr/>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+            <div id="message-box" class="mt-5 pt-3">
+                <ul id="messages-list"></ul>
             </div>
         </div>
     </div>
+
 </div>
 
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>

@@ -11,3 +11,23 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+#crane {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 35px;
+    letter-spacing: -0.4px;
+    word-spacing: -0.8px;
+    color: #B734A2;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+    text-transform: none;
+}
+
+#messages-list {
+    list-style: none;
+}
+
+#crane span {
+    font-size: 25px;
+}

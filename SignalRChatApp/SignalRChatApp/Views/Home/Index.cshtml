@@ -1,1 +1,20 @@
-﻿Home
+﻿@page
+
+<div class="container text-center mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="~/images/icons8-origami-48.png" width="80" />
+            <div class="display-1">
+                <h1 id="crane">SignalR Chat App</h1>
+            </div>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <p class="h3">Log in and start a new conversation!</p>
+                <div class="btn-group">
+                    <a class="btn btn-warning btn-lg mt-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    <a class="btn btn-dark btn-lg" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
